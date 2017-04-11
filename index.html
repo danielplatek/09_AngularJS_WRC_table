@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AngularJS</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body ng-app="application">
+<div class="container" ng-controller="tableController">
+    <div class="row">
+        <div class="col-sm-9 col-lg-12 center-block ">
+            <input type="text" class="form-control name" placeholder="Please enter your name" ng-model="name">
+            <h2 class="text-center">Hello {{ name | uppercase }} :)!</h2>
+            <h2 class="text-center">Klasyfikacja {{ drivers.length }} Kierowców WRC</h2>
+            <h3 class="text-center">Rallye Monte Carlo</h3>
+            <br>
+            <div class="row">
+                <div class="col-xs-9">
+                    <div class="input-group input-group-sm">
+                        <input type="text" class="form-control " placeholder="Wyszukaj kierowcy" ng-model="searchEngine">
+                        <span class="input-group-addon">Szukaj</span>
+                    </div>
+                </div>
+
+                <div class="col-xs-3 ">
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-primary btn-sm pull-right" data-toggle="modal" data-target="#myModal">
+                        Dodaj wynik
+                    </button>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-body">
+                                    <div class="form-group">
+                                        <label for="">POS</label>
+                                        <input ng-model="posDriver" type="text" class="form-control" style="width: 50px">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="">CAR NO</label>
+                                        <input ng-model="carnoDriver" type="text" class="form-control" style="width: 50px">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="">Driver's name</label>
+                                        <input ng-model="nameDriver" type="text" class="form-control" style="width: 200px">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="">Team</label>
+                                        <input ng-model="teamDriver" type="text" class="form-control" style="width: 400px">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="">Time</label>
+                                        <input ng-model="timeDriver" type="text" class="form-control" placeholder="0:00:00.0" style="width: 85px">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="">DIFF 1ST</label>
+                                        <input ng-model="diff1stDriver" type="text" class="form-control" placeholder="+00:00.0" style="width: 85px">
+                                    </div>
+
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default btn-xs" data-dismiss="modal">Close</button>
+                                    <button ng-click="addDriver()" type="button" class="btn btn-primary btn-xs">Add Driver</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <!--<th ng-repeat="heading in [-->
+                            <!--'POS', ' CAR NO', 'DRIVER','edit', 'TEAM', 'TIME', 'DIFF 1ST', 'index','del'-->
+                            <!--]">-->
+                                <!--{{heading}}-->
+                            <!--</th>-->
+
+                            <th ng-click="sortBy('Pos')">POS
+                                <button class="btn btn-primary btn-xs">&#8593; &#8595;</button>
+                            </th>
+                            <th ng-click="sortBy('Car_No')">CAR NO
+                                <button class="btn btn-primary btn-xs">&#8593; &#8595;</button>
+                            </th>
+                            <th ng-click="sortBy('Driver')">DRIVER
+                                <button class="btn btn-primary btn-xs">&#8593; &#8595;</button>
+                            </th>
+                            <th ng-click="sortBy('Team')">TEAM
+                                <button class="btn btn-primary btn-xs">&#8593; &#8595;</button>
+                            </th>
+                            <th ng-click="sortBy('Time')">TIME
+                                <button class="btn btn-primary btn-xs">&#8593; &#8595;</button>
+                            </th>
+                            <th ng-click="sortBy('Diff_1st')">DIFF 1ST
+                                <button class="btn btn-primary btn-xs">&#8593; &#8595;</button>
+                            </th>
+                            <th class="text-center">edit</th>
+                            <th class="text-center">del</th>
+                        </tr>
+                    </thead>
+                    <thbody>
+                        <tr ng-repeat="driver in drivers | filter : searchEngine | orderBy : mySortBy">
+
+                            <td> {{driver.Pos}}
+                                <input ng-if="edit" ng-model="driver.Pos" type="text" class="form-control input-sm">
+                            </td>
+                            <td> {{driver.Car_No}}
+                                <input ng-if="edit" ng-model="driver.Car_No" type="text" class="form-control input-sm">
+                            </td>
+                            <td> {{driver.Driver}}
+                                <input ng-if="edit" ng-model="driver.Driver" type="text" class="form-control input-sm">
+                            </td>
+                            <td> {{driver.Team}}
+                                <input ng-if="edit" ng-model="driver.Team" type="text" class="form-control input-sm">
+                            </td>
+                            <td> {{driver.Time}}
+                                <input ng-if="edit" ng-model="driver.Time" type="text" class="form-control input-sm">
+                            </td>
+                            <td> {{driver.Diff_1st}}
+                                <input ng-if="edit" ng-model="driver.Diff_1st" type="text" class="form-control input-sm">
+                            </td>
+                            <td>
+                                <button ng-click="edit =! edit" class="btn btn-success btn-xs">edit</button>
+                            </td>
+                            <td>
+                                <button ng-click="delDriver( $index )" class="btn btn-danger btn-xs">&times;</button>
+                            </td>
+                        </tr>
+                    </thbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="js/angular.js"></script>
+<script type="text/javascript" src="js/jquery-3.2.0.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/app.js"></script>
+</body>
+</html>
