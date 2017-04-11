@@ -6,7 +6,7 @@ app.controller( 'tableController', [ '$scope', '$filter', function($scope) {
 
     $scope.sortBy = function( sort ) {
         if ($scope.mySortBy == sort){
-            $scope.mySortBy = '-' + x;  // reverse sort
+            $scope.mySortBy = '-' + sort;  // reverse sort
         }else{
             $scope.mySortBy = sort;
         }
