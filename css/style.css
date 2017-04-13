@@ -25,3 +25,21 @@ body{
     font-size: 10px;
     height: 20px;
 }
+
+.modal-dialog {
+    width: 423px;
+    margin: 20px auto;
+}
+
+.modal-footer {
+    padding: 12px;
+    text-align: right;
+    border-top: 1px solid #e5e5e5;
+}
+.modal-content {
+    font-size: 12px;
+}
+.form-control{
+    height: 26px;
+    font-size: 12px;
+}

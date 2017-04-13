@@ -82,7 +82,6 @@
                             <!--]">-->
                                 <!--{{heading}}-->
                             <!--</th>-->
-
                             <th ng-click="sortBy('Pos')">POS
                                 <button class="btn btn-primary btn-xs">&#8593; &#8595;</button>
                             </th>
@@ -106,7 +105,7 @@
                         </tr>
                     </thead>
                     <thbody>
-                        <tr ng-repeat="driver in drivers | filter : searchEngine | orderBy : mySortBy">
+                        <tr ng-repeat="driver in drivers | filter : searchEngine | orderBy : sortGet |orderBy : mySortBy">
 
                             <td> {{driver.Pos}}
                                 <input ng-if="edit" ng-model="driver.Pos" type="text" class="form-control input-sm">
